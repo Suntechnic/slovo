@@ -3,6 +3,8 @@
     "description": "Пакет для операций со словами",
     "keywords": ["soundex","metaphone"],
     "license": "MIT",
+    "type": "package",
+    "minimum-stability":"dev",
     "authors": [
         {
             "name": "Alexander Madzhugin (Suntechnic)",
