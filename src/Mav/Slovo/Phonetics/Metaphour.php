@@ -5,12 +5,12 @@ namespace Mav\Slovo\Phonetics;
 class Metaphour {
     
     // упрощение гласных
-    private $vowelsSimplingTable = [
-                'ЙО' => 'И', 'ИО' => 'И', 'ЙЕ' => 'И', 'ИЕ' => 'И',
-                'О' => 'А', 'Ы' => 'А', 'Я' => 'А',
-                'Е' => 'И', 'Ё' => 'И', 'Э' => 'И',
-                'Ю' => 'У'
-            ];
+    //private $vowelsSimplingTable = [
+    //            'ЙО' => 'И', 'ИО' => 'И', 'ЙЕ' => 'И', 'ИЕ' => 'И',
+    //            'О' => 'А', 'Ы' => 'А', 'Я' => 'А',
+    //            'Е' => 'И', 'Ё' => 'И', 'Э' => 'И',
+    //            'Ю' => 'У'
+    //        ];
         
     // оглушение
     private $flumpingTable = [
@@ -58,9 +58,11 @@ class Metaphour {
         )
     {
         // удаляем из слова все кроме русских букв, образующих звуки
-        $SLOVO = mb_ereg_replace('[^ОЕАИУЭЮЯПСТРКЛМНБВГДЖЗЙФХЦЧШЩЫЁ]','',\mb_strtoupper($slovo));
+        $SLOVO = preg_replace('/[^ОЕАИУЭЮЯПСТРКЛМНБВГДЖЗЙФХЦЧШЩЫЁ]/u','',\mb_strtoupper($slovo));
+        
         // удаляем повторяющиеся символы
         $SLOVO = preg_replace('/(.)\\1+/u','$1',$SLOVO);
+        
         return $SLOVO;
     }
     
@@ -74,41 +76,32 @@ class Metaphour {
     }
     
     // упрощение гласных
-    private $vowelsSimplingReplacer = false;
-    private function vowelsSimpling (string $SLOVO) {
-        if (!$this->vowelsSimplingReplacer) {
-            $this->vowelsSimplingReplacer = new \Mav\Slovo\Utils\Replacer($this->vowelsSimplingTable);
-        }
-        
-        return $this->vowelsSimplingReplacer->replace($SLOVO);
+    //private $vowelsSimplingReplacer = false;
+    //private function vowelsSimpling (string $SLOVO) {
+    //    if (!$this->vowelsSimplingReplacer) {
+    //        $this->vowelsSimplingReplacer = new \Mav\Slovo\Utils\Replacer($this->vowelsSimplingTable);
+    //    }
+    //    
+    //    return $this->vowelsSimplingReplacer->replace($SLOVO);
+    //}
+    private function vowelsSimpling (string $SLOVO) { // +20% производительности
+        return preg_replace('/Ю/u', 'У', preg_replace('/Е|Ё|Э/u', 'И', preg_replace('/О|Ы|Я/u', 'А', preg_replace('/ЙО|ИО|ЙЕ|ИЕ/u', 'И', $SLOVO))));
     }
     
     // оглушение согласных
-    private $flumpingReplacer = false;
+    private $flumpingRegexps = false;
     private function flumping ($SLOVO) {
-        // создаем реплейсер
-        if (!$this->flumpingReplacer)
-        {
-            $refTable = [];
-            // все согласные кроме Л, М, Н или Р
-            $lstConsonans = ['П','С','Т','К','Б','В','Г','Д','Ж','З','Й','Ф','Х','Ц','Ч','Ш','Щ'];
-            $refConsonants = array_combine(
-                    $lstConsonans,
-                    $lstConsonans
-                );
-            // или на конце слова
-            $refConsonants['_'] = '';
-            
-            foreach ($this->flumpingTable as $c=>$h) {
-                foreach ($refConsonants as $ck=>$cv) {
-                    $refTable[$c.$ck] = $h.$cv;
-                }
+        if (!$this->flumpingRegexps) {
+            $this->flumpingRegexps = [];
+            foreach($this->flumpingTable as $search => $replace) {
+                $this->flumpingRegexps["/{$search}([ПСТКБВГДЖЗФХЦЧШЩ])|{$search}()$/u"] = "{$replace}$1";
             }
-            
-            $refTable['_'] = '';
-            $this->flumpingReplacer = new \Mav\Slovo\Utils\Replacer($refTable);
         }
-        return $this->flumpingReplacer->replace($SLOVO.'_');
+        
+        foreach($this->flumpingRegexps as $search => $replace) {
+            $SLOVO = preg_replace($search, $replace, $SLOVO);
+        }
+        return $SLOVO;
     }
     
     /**
@@ -149,7 +142,4 @@ class Metaphour {
         
         return $SLF;
     }
-    
-    
-    
 }
