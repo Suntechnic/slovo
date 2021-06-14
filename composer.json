@@ -4,6 +4,7 @@
     "keywords": ["soundex","metaphone"],
     "license": "MIT",
     "type": "package",
+    "stability":"dev",
     "minimum-stability":"dev",
     "authors": [
         {
