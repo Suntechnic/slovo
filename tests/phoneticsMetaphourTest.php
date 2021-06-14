@@ -11,6 +11,7 @@ class PhoneticsMetaphourTest extends \PHPUnit\Framework\TestCase
     public function __construct ()
     {
         $this->metaphour = new \Mav\Slovo\Phonetics\Metaphour();
+        $this->metaphourReflection = new ReflectionClass('\Mav\Slovo\Phonetics\Metaphour');
         return parent::__construct();
     }
     
@@ -21,9 +22,12 @@ class PhoneticsMetaphourTest extends \PHPUnit\Framework\TestCase
                 'ВИТОВСКИЙ' => 'ВИТ@',
             ];
         
+        $method = $this->metaphourReflection->getMethod('endingCompression');
+        $method->setAccessible(true);
+        
         foreach ($refExpected as $test=>$expected) $this->assertSame(
                 $expected,
-                $this->metaphour->endingCompression($test)
+                $method->invoke($this->metaphour, $test)
             );
     }
     
@@ -45,9 +49,12 @@ class PhoneticsMetaphourTest extends \PHPUnit\Framework\TestCase
                 'ЮЛА' => 'УЛА'
             ];
         
+        $method = $this->metaphourReflection->getMethod('vowelsSimpling');
+        $method->setAccessible(true);
+        
         foreach ($refExpected as $test=>$expected) $this->assertSame(
                 $expected,
-                $this->metaphour->vowelsSimpling($test)
+                $method->invoke($this->metaphour, $test)
             );
     }
     
@@ -71,9 +78,13 @@ class PhoneticsMetaphourTest extends \PHPUnit\Framework\TestCase
                 'СОВБЕЗ' => 'СОФБЕС',
                 'КУЗНЕЦОВ' => 'КУЗНЕЦОФ',
             ];
+        
+        $method = $this->metaphourReflection->getMethod('flumping');
+        $method->setAccessible(true);
+        
         foreach ($refExpected as $test=>$expected) $this->assertSame(
                 $expected,
-                $this->metaphour->flumping($test)
+                $method->invoke($this->metaphour, $test)
             );
     }
     

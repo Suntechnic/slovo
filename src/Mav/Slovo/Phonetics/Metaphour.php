@@ -52,9 +52,21 @@ class Metaphour {
                 '_' => ''
             ];
     
+    
+    private function prepare (
+            string $slovo
+        )
+    {
+        // удаляем из слова все кроме русских букв, образующих звуки
+        $SLOVO = mb_ereg_replace('[^ОЕАИУЭЮЯПСТРКЛМНБВГДЖЗЙФХЦЧШЩЫЁ]','',\mb_strtoupper($slovo));
+        // удаляем повторяющиеся символы
+        $SLOVO = preg_replace('/(.)\\1+/u','$1',$SLOVO);
+        return $SLOVO;
+    }
+    
     // сжтатие окончаний
     private $endingCompressionReplacer = false;
-    public function endingCompression ($SLOVO) {
+    private function endingCompression (string $SLOVO) {
         if (!$this->endingCompressionReplacer) {
             $this->endingCompressionReplacer = new \Mav\Slovo\Utils\Replacer($this->endingsCompressionTable);
         }
@@ -63,7 +75,7 @@ class Metaphour {
     
     // упрощение гласных
     private $vowelsSimplingReplacer = false;
-    public function vowelsSimpling ($SLOVO) {
+    private function vowelsSimpling (string $SLOVO) {
         if (!$this->vowelsSimplingReplacer) {
             $this->vowelsSimplingReplacer = new \Mav\Slovo\Utils\Replacer($this->vowelsSimplingTable);
         }
@@ -73,7 +85,7 @@ class Metaphour {
     
     // оглушение согласных
     private $flumpingReplacer = false;
-    public function flumping ($SLOVO) {
+    private function flumping ($SLOVO) {
         // создаем реплейсер
         if (!$this->flumpingReplacer)
         {
@@ -114,11 +126,8 @@ class Metaphour {
             bool $ending_compression=false
         )
     {
-        // удаляем из слова все кроме русских букв
-        $SLOVO = mb_ereg_replace('[^ОЕАИУЭЮЯПСТРКЛМНБВГДЖЗЙФХЦЧШЩЫЁ]','',\mb_strtoupper($slovo));
         
-        // удаляем повторяющиеся символы
-        $SLOVO = preg_replace('/(.)\\1+/u','$1',$SLOVO);
+        $SLOVO = $this->prepare($slovo);
         
         // сжатие окончаний
         if ($ending_compression) {
@@ -140,4 +149,7 @@ class Metaphour {
         
         return $SLF;
     }
+    
+    
+    
 }
