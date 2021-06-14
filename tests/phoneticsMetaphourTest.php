@@ -10,7 +10,7 @@ class PhoneticsMetaphourTest extends \PHPUnit\Framework\TestCase
     
     public function __construct ()
     {
-        $this->metaphour = new \Mazha\Slovo\Phonetics\Metaphour();
+        $this->metaphour = new \Mav\Slovo\Phonetics\Metaphour();
         return parent::__construct();
     }
     
@@ -18,7 +18,6 @@ class PhoneticsMetaphourTest extends \PHPUnit\Framework\TestCase
     public function testEndingCompression(): void
     {
         $refExpected = [
-                'ВИТАВСКИЙ' => 'ВИТ@',
                 'ВИТОВСКИЙ' => 'ВИТ@',
             ];
         

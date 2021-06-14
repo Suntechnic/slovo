@@ -4,7 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $slovo = 'пара слов';
 
-$transliterator = new \Mazha\Slovo\Transliterator();
+$transliterator = new \Mav\Slovo\Transliterator();
 
 echo $transliterator->appendTable([
         ' ' => '_',

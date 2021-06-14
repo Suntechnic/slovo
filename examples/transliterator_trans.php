@@ -7,5 +7,5 @@ unset($lstSlova[0]);
 
 if (!is_array($lstSlova) || !count($lstSlova)) $lstSlova = ['слово'];
 
-$transliterator = new \Mazha\Slovo\Transliterator();
+$transliterator = new \Mav\Slovo\Transliterator();
 foreach ($lstSlova as $slovo) echo $transliterator->trans($slovo), "\n";

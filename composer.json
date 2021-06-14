@@ -1,12 +1,12 @@
 {
-    "name": "mazha/slovo",
+    "name": "mav/slovo",
     "description": "Пакет для операций со словами",
     "keywords": ["soundex","metaphone"],
     "license": "MIT",
     "type": "package",
     "stability":"dev",
     "minimum-stability":"dev",
-    "version":"0.1.0",
+    "version":"0.1.1",
     "authors": [
         {
             "name": "Alexander Madzhugin (Suntechnic)",
@@ -22,7 +22,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "Mazha\\": "src/Mazha"
+            "Mav\\": "src/Mav"
         }
     }
 }

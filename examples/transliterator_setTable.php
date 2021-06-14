@@ -4,7 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $lstSlova = ['слово', 'пара слов', 'ещё три слова'];
 
-$transliterator = new \Mazha\Slovo\Transliterator();
+$transliterator = new \Mav\Slovo\Transliterator();
 
 foreach ($lstSlova as $slovo) echo $transliterator->trans($slovo), "\n";
 

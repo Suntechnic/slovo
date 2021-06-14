@@ -10,7 +10,7 @@ class PhoneticsTest extends \PHPUnit\Framework\TestCase
     
     public function __construct ()
     {
-        $this->phonetics = new \Mazha\Slovo\Phonetics();
+        $this->phonetics = new \Mav\Slovo\Phonetics();
         return parent::__construct();
     }
     

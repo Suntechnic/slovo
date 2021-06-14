@@ -11,7 +11,7 @@
 =============
 
 ```php
-$phonetics = new \Mazha\Slovo\Phonetics();
+$phonetics = new \Mav\Slovo\Phonetics();
 $phonetics->metaphour('Насанов');  // НАСАНАФ
 $phonetics->metaphour('Нассонов'); // НАСАНАФ
 $phonetics->metaphour('Насонов');  // НАСАНАФ
