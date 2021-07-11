@@ -10,7 +10,9 @@
     "authors": [
         {
             "name": "Alexander Madzhugin (Suntechnic)",
-            "email": "madzhugin@gmail.com"
+            "email": "madzhugin@gmail.com",
+            "homepage": "https://github.com/Suntechnic/",
+            "role": "Developer"
         }
     ],
     "require": {
