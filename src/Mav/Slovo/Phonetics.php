@@ -21,6 +21,7 @@ class Phonetics {
      * Metaphone wrapper
      *
      * @param string $slovo
+     * @param int $max_phonemes
      *
      * @return string
     */
