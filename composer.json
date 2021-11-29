@@ -6,7 +6,6 @@
     "type": "package",
     "stability":"dev",
     "minimum-stability":"dev",
-    "version":"0.2.2",
     "authors": [
         {
             "name": "Alexander Madzhugin (Suntechnic)",
@@ -18,16 +17,13 @@
     "require": {
         "php": ">=7.2.0"
     },
-    
     "require-dev": {
         "phpunit/phpunit": "^7.0"
     },
-    
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Mav\\": "src/Mav"
         }
     }
-    
 }
