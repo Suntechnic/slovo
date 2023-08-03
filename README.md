@@ -33,3 +33,13 @@ $phonetics->metaphour('Насанов');  // НАСАНАФ
 $phonetics->metaphour('Нассонов'); // НАСАНАФ
 $phonetics->metaphour('Насонов');  // НАСАНАФ
 ```
+
+### Транслитерация
+
+Использование
+=============
+
+```php
+$transliterator = new \Mav\Slovo\Transliterator();
+$transliterator->trans('слово'); // slovo
+```
